@@ -5,19 +5,27 @@ import (
 	"errors"
 )
 
-func NewAuthService(userRepository contracts.UserRepository) contracts.AuthService {
+func NewAuthService(
+	userRepository contracts.UserRepository,
+	hasher contracts.Hasher,
+	jwt contracts.JWT,
+) contracts.AuthService {
 	return &authServiceImpl{
 		userRepository: userRepository,
+		hasher:         hasher,
+		jwt:            jwt,
 	}
 }
 
 type authServiceImpl struct {
 	userRepository contracts.UserRepository
+	hasher         contracts.Hasher
+	jwt            contracts.JWT
 }
 
 // Login implements contracts.AuthService.
 func (a *authServiceImpl) Login(email string, password string) (string, error) {
-	user, err := a.userRepository.FindByEmail(email) 
+	user, err := a.userRepository.FindByEmail(email)
 
 	if err != nil {
 		return "", err
@@ -26,7 +34,13 @@ func (a *authServiceImpl) Login(email string, password string) (string, error) {
 	if user == nil {
 		return "", errors.New("user not found")
 	}
-	return "", errors.New("unimplemented")
+
+	if !a.hasher.Compare(password, user.PasswordHash) {
+		return "", contracts.ErrInvalidCredentials
+	}
+
+	return a.jwt.GenerateJWT(*user)
+
 }
 
 // SignUp implements contracts.AuthService.

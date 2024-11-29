@@ -7,7 +7,7 @@ type Hasher interface {
 	Compare(password, hashedPassword string) bool
 }
 
-type Jwt interface {
+type JWT interface {
 	GenerateJWT(user User) (string, error)
 	ParseJWT(tokenString string) (*User, error)
 	ExtractToken(r *http.Request) (string, error)

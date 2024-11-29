@@ -11,9 +11,7 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	corsMux := enaableCORS(mux)
-
-
+	corsMux := enableCORS(mux)
 	err := http.ListenAndServe(fmt.Sprintf(":%s", port), corsMux)
 
 	if err != nil {
@@ -24,7 +22,7 @@ func main() {
 	}
 }
 
-func enaableCORS(mux *http.ServeMux) http.Handler {
+func enableCORS(mux *http.ServeMux) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH")

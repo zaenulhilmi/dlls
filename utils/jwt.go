@@ -8,7 +8,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-func NewJWT() contracts.Jwt {
+func NewJWT() contracts.JWT {
 	return &jwtImpl{}
 }
 

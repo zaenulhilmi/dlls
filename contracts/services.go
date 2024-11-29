@@ -1,6 +1,6 @@
 package contracts
 
 type AuthService interface {
-	SignUp(user User) error
+	SignUp(name, email, password string) error
 	Login(email, password string) (string, error)
 }

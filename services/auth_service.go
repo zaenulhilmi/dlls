@@ -44,10 +44,26 @@ func (a *authServiceImpl) Login(email string, password string) (string, error) {
 }
 
 // SignUp implements contracts.AuthService.
-func (a *authServiceImpl) SignUp(user contracts.User) error {
-	if user.Email == "" || user.PasswordHash == "" {
-		return errors.New("email and password are required")
+func (a *authServiceImpl) SignUp(name, email, password string) error {
+	if name == "" || email == "" || password == "" {
+		return errors.New("name, email and password are required")
 	}
 
+	existingUser, err := a.userRepository.FindByEmail(email)
+
+	if err != nil {
+		return err
+	}
+
+	if existingUser != nil {
+		return errors.New("user already exists")
+	}
+
+	user := contracts.User{
+		Name:         name,
+		Email:        email,
+		PasswordHash: a.hasher.Hash(password),
+	}
+			
 	return a.userRepository.Save(user)
 }

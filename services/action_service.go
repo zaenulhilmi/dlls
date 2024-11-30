@@ -2,6 +2,7 @@ package services
 
 import (
 	"dlls/contracts"
+	"math/rand/v2"
 	"time"
 )
 
@@ -50,6 +51,7 @@ func action(actionType contracts.ActionType, userID string, targetID string, a *
 		return contracts.ErrUserNotFound
 	}
 
+
 	if user.IsPremium {
 		return a.actionRepository.Save(action)
 	}
@@ -62,11 +64,24 @@ func action(actionType contracts.ActionType, userID string, targetID string, a *
 
 	actionsToday := getActionedUserIDsByUserIDToday(actions, userID)
 
+	if(targetAlreadyActioned(actionsToday, targetID)) {
+		return contracts.ErrActionAlreadyGiven
+	}
+
 	if len(actionsToday) >= a.regularUserLimit {
 		return contracts.ErrActionLimitReached
 	}
 
 	return a.actionRepository.Save(action)
+}
+
+func targetAlreadyActioned(actionsToday []string, targetID string) bool {
+	for _, actionedID := range actionsToday {
+		if actionedID == targetID {
+			return true
+		}
+	}
+	return false
 }
 
 // NextTarget implements contracts.ActionService.
@@ -89,7 +104,12 @@ func (a *actionService) NextTarget(userID string) (string, error) {
 		return "", nil
 	}
 
-	return users[0].ID, nil
+	// random between 0 and len(users)
+
+	randomIndex := randRange(0, len(users))
+
+
+	return users[randomIndex].ID, nil
 }
 
 func getActionedUserIDsByUserIDToday(actions []contracts.Action, userID string) []string {
@@ -108,4 +128,8 @@ func getActionedUserIDsByUserIDToday(actions []contracts.Action, userID string) 
 	}
 
 	return result
+}
+
+func randRange(min, max int) int {
+	return rand.IntN(max-min) + min
 }

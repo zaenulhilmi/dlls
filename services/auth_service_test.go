@@ -69,7 +69,7 @@ func TestAuthService_SignUp_NoEmailAndPassword(t *testing.T) {
 	userRepository := repositories.NewMemUserRepository()
 	authService := newAuthService(userRepository)
 
-	err := authService.SignUp("", "", "")
+	err := authService.SignUp("", "")
 	if err == nil {
 		t.Errorf("AuthService.SignUp() error = %v, wantErr %v", err, true)
 	}
@@ -85,7 +85,7 @@ func TestAuthService_SignUp_EmailExists(t *testing.T) {
 
 	authService := newAuthService(userRepo)
 
-	err := authService.SignUp("name", "email", "password")
+	err := authService.SignUp("email", "password")
 
 	if err == nil {
 		t.Errorf("AuthService.SignUp() error = %v, wantErr %v", err, true)
@@ -101,7 +101,7 @@ func TestAuthService_SignUp_ValidUser(t *testing.T) {
 	userRepo := repositories.NewMemUserRepository()
 	authService := newAuthService(userRepo)
 
-	err := authService.SignUp("name", "email", "password")
+	err := authService.SignUp("email", "password")
 
 	if err != nil {
 		t.Errorf("AuthService.SignUp() error = %v, wantErr %v", err, false)

@@ -15,3 +15,4 @@ var ErrEmptyName = errors.New("name can not be empty")
 var ErrInvalidCredentials = errors.New("email or password is incorrect")
 
 var ErrActionLimitReached = errors.New("action limit reached")
+var ErrActionAlreadyGiven = errors.New("action already given, please preview next profile")

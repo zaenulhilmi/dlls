@@ -19,6 +19,7 @@ func (m *memUserRepository) Update(ID string, user contracts.User) error {
 	for i, u := range m.users {
 		if u.ID == ID {
 			m.users[i] = user
+			m.users[i].ID = ID
 			return nil
 		}
 	}

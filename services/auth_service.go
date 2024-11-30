@@ -3,6 +3,7 @@ package services
 import (
 	"dlls/contracts"
 	"errors"
+	"github.com/google/uuid"
 )
 
 func NewAuthService(
@@ -44,8 +45,8 @@ func (a *authServiceImpl) Login(email string, password string) (string, error) {
 }
 
 // SignUp implements contracts.AuthService.
-func (a *authServiceImpl) SignUp(name, email, password string) error {
-	if name == "" || email == "" || password == "" {
+func (a *authServiceImpl) SignUp(email, password string) error {
+	if  email == "" || password == "" {
 		return errors.New("name, email and password are required")
 	}
 
@@ -60,7 +61,7 @@ func (a *authServiceImpl) SignUp(name, email, password string) error {
 	}
 
 	user := contracts.User{
-		Name:         name,
+		ID: uuid.New().String(),
 		Email:        email,
 		PasswordHash: a.hasher.Hash(password),
 	}

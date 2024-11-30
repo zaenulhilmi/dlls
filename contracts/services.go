@@ -1,7 +1,7 @@
 package contracts
 
 type AuthService interface {
-	SignUp(name, email, password string) error
+	SignUp(email, password string) error
 	Login(email, password string) (string, error)
 }
 
@@ -13,4 +13,9 @@ type ActionService interface {
 
 type SubscriptionService interface {
 	Subscribe(userID string) error
+}
+
+type UserService interface {
+	FindByID(id string) (*User, error)
+	Update(id string, user User) error
 }

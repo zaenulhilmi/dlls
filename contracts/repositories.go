@@ -7,8 +7,6 @@ type UserRepository interface {
 	GetUsers(exludeIDs []string) ([]User, error)
 	Update(ID string, user User) error
 }
-		
-
 
 type ActionRepository interface {
 	Save(action Action) error

@@ -288,3 +288,26 @@ func TestActionService_Pass_PremiumUser(t *testing.T) {
 		t.Errorf("ActionService.Pass() error = %v, wantErr %v", err, false)
 	}
 }
+
+func TestActionService_Like_CanNotLikeTwiceToday(t *testing.T) {
+	userRepo := repositories.NewMemUserRepository()
+	actionRepo := repositories.NewMemActionRepository()
+
+	userRepo.Save(contracts.User{
+		ID:    "target-id",
+		Email: "target-email",
+	})
+	userRepo.Save(contracts.User{
+		ID:    "user-id",
+		Email: "user-email",
+	})
+
+	actionService := services.NewActionService(userRepo, actionRepo, 3)
+
+	actionService.Like("user-id", "target-id")
+	err := actionService.Like("user-id", "target-id")
+
+	if err != contracts.ErrActionAlreadyGiven {
+		t.Errorf("ActionService.Like() error = %v, wantErr %v", err, contracts.ErrActionLimitReached)
+	}
+}

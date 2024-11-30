@@ -5,17 +5,17 @@
 
 ## Running the App
     
-    ```bash
-    go run main.go
-    ```
-    The app will run on port 8080
+```bash
+go run main.go
+```
+The app will run on port 8080
 
 ## Running the Tests
 
-    ```bash
-    go test ./...
-    ```
-    This will run all the tests in the app
+```bash
+go test ./...
+```
+This will run all the tests in the app
 
 ### Testing Watcher (For Development Purposes)
 

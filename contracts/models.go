@@ -1,5 +1,7 @@
 package contracts
 
+import "time"
+
 type User struct {
 	ID           string
 	Name         string
@@ -13,7 +15,7 @@ type Action struct {
 	UserID     string
 	TargetID   string
 	ActionType ActionType
-	ActionedAt string
+	ActionedAt time.Time
 }
 
 type ActionType string

@@ -9,5 +9,4 @@ type ActionService interface {
 	Like(userID, targetID string) error
 	Pass(userID, targetID string) error
 	NextTarget(userID string) (string, error)
-	Actions(userID string) ([]Action, error)
 }

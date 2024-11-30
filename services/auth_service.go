@@ -32,7 +32,7 @@ func (a *authServiceImpl) Login(email string, password string) (string, error) {
 	}
 
 	if user == nil {
-		return "", errors.New("user not found")
+		return "", contracts.ErrUserNotFound
 	}
 
 	if !a.hasher.Compare(password, user.PasswordHash) {

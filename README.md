@@ -8,7 +8,7 @@
 ```bash
 go run main.go
 ```
-The app will run on port 8080
+The app will run on port 8010
 
 ## Running the Tests
 

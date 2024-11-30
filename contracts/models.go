@@ -8,6 +8,7 @@ type User struct {
 	Email        string
 	Phone        string
 	PasswordHash string
+	IsPremium    bool
 }
 
 type Action struct {

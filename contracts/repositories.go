@@ -5,6 +5,7 @@ type UserRepository interface {
 	FindByEmail(email string) (*User, error)
 	FindByID(id string) (*User, error)
 	GetUsers(exludeIDs []string) ([]User, error)
+	Update(ID string, user User) error
 }
 		
 

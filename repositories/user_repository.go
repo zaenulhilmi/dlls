@@ -14,6 +14,18 @@ type memUserRepository struct {
 	users []contracts.User
 }
 
+// Update implements contracts.UserRepository.
+func (m *memUserRepository) Update(ID string, user contracts.User) error {
+	for i, u := range m.users {
+		if u.ID == ID {
+			m.users[i] = user
+			return nil
+		}
+	}
+
+	return contracts.ErrUserNotFound
+}
+
 // GetUsers implements contracts.UserRepository.
 func (m *memUserRepository) GetUsers(exludeIDs []string) ([]contracts.User, error) {
 	var result []contracts.User

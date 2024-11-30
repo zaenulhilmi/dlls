@@ -10,3 +10,7 @@ type ActionService interface {
 	Pass(userID, targetID string) error
 	NextTarget(userID string) (string, error)
 }
+
+type SubscriptionService interface {
+	Subscribe(userID string) error
+}

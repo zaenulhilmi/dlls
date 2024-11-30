@@ -64,6 +64,6 @@ func (a *authServiceImpl) SignUp(name, email, password string) error {
 		Email:        email,
 		PasswordHash: a.hasher.Hash(password),
 	}
-			
+
 	return a.userRepository.Save(user)
 }

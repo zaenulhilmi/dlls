@@ -100,7 +100,7 @@ func TestAuthService_SignUp_EmailExists(t *testing.T) {
 		t.Error("UserRepository.FindByEmail() was not called")
 	}
 
-	if err.Error() != "user already exists" {
+	if err != contracts.ErrUserExists {
 		t.Errorf("AuthService.SignUp() error = %v, wantErr %v", err, "user already exists")
 	}
 

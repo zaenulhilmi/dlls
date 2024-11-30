@@ -3,6 +3,8 @@ package contracts
 import "errors"
 
 var ErrUserNotFound = errors.New("user not found")
+var ErrUserExists = errors.New("user already exists")
+
 var ErrLoginFailed = errors.New("can not login")
 
 var ErrInvalidToken = errors.New("invalid token")

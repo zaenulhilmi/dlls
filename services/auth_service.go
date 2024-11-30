@@ -56,7 +56,7 @@ func (a *authServiceImpl) SignUp(name, email, password string) error {
 	}
 
 	if existingUser != nil {
-		return errors.New("user already exists")
+		return contracts.ErrUserExists
 	}
 
 	user := contracts.User{

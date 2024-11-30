@@ -27,10 +27,64 @@ make sure you have nodemon installed globally
 nodemon --exec "go test ./..." --ext "go"
 ```
 
+### Dependency Graph
+
+![Dependency Graph](./dependency-graph.png)
+
 ## API Endpoints
-    
 
+### Login
+```bash
+curl --location 'http://localhost:8010/api/v1/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "email-0@example.com",
+    "password": "password"
+}'    
+```
 
+### Sign Up
+```bash
+curl --location 'http://localhost:8010/api/v1/signup' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "admin@example.com",
+    "password": "password"
+}'
+```
+
+### Preview Target Profile
+```bash
+curl --location 'http://localhost:8010/api/v1/preview-next-profile' \
+--header 'Authorization: Bearer <JWT_TOKEN>'
+```
+
+### Swipe Profile
+#### Like
+```bash
+curl --location 'http://localhost:8010/api/v1/like' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <JWT_TOKEN>' \
+--data '{
+    "target_id": "user-84"
+}'
+```
+#### Pass
+```bash
+curl --location 'http://localhost:8010/api/v1/pass' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <JWT_TOKEN>' \
+--data '{
+    "target_id": "user-84"
+}'
+```
+
+### Purchase Premium
+```bash
+curl --location --request POST 'http://localhost:8010/api/v1/subscribe' \
+--header 'Authorization: Bearer <JWT_TOKEN>' \
+--data ''
+```
 
 ## Functionalities
 

@@ -22,7 +22,7 @@ func main() {
 	jwt := utils.NewJWT()
 	hasher := utils.NewHasher()
 
-	actionService := services.NewActionService(userRepository, actionRepository, 2)
+	actionService := services.NewActionService(userRepository, actionRepository, 10)
 	subscriptionService := services.NewSubscriptionService(userRepository)
 	authService := services.NewAuthService(userRepository, hasher, jwt)
 	userService := services.NewUserService(userRepository)
